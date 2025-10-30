@@ -30,17 +30,17 @@ defmodule Taxi.Server do
 
   def handle_call({:create_trip_request, user, address}, _from, state) do
     now = NaiveDateTime.utc_now()
-    
+
     price = calculate_total(user.address, address)
-    
+
     trip = %{
-      user: user, 
-      address: address, 
-      time: now, 
+      user: user,
+      address: address,
+      time: now,
       price: price,
       status: "pending"
     }
-    
+
     # Update state with new trip
     new_state = Map.update(state, :trips, [trip], fn trips -> [trip | trips] end)
     {:reply, {:ok, trip}, new_state}
@@ -64,13 +64,15 @@ defmodule Taxi.Server do
 
   defp calculate_total(user_address, address) do
     distance = calculate_distance(user_address, address)
-    total = distance * 1500  # $15 per km (adjust as needed)
-    Float.round(total, 2)    # Round to 2 decimal places
+    # $15 per km (adjust as needed)
+    total = distance * 1500
+    # Round to 2 decimal places
+    Float.round(total, 2)
   end
 
   defp calculate_distance(user_address, final_address) do
-    MyApp.TaxiPricing.calculate_distance(user_address, final_address)
-    
-   end
-
+    MyApp.TaxiPricing.calculate_trip_price(user_address, final_address) 
+  end
 end
+
+

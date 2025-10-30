@@ -1,4 +1,4 @@
-defmodule MyApp.TaxiPricing do
+defmodule  MyApp.TaxiPricing do
   alias MyApp.OSMDistance
 
   @base_fare 3.00
@@ -31,12 +31,15 @@ defmodule MyApp.TaxiPricing do
   defp calculate_zone_price(origin, destination) do
     # Simple zone-based pricing when geocoding fails
     zones = %{
-      "downtown" => 8.00,
-      "suburbs" => 15.00,
-      "airport" => 25.00,
+      "centro" => 8.00,
+      "norte" => 15.00,
+      "aeropuerto" => 35.00,
       "portal_quindio" => 15.00,
       "unicentro" => 5.00,
-      "default" => 12.00
+      "exito centro" => 12.00,
+      "zoologico" => 25.00,
+      "keisaki" => 25.00,
+      "parque del cafe" => 50.00
     }
 
     # Simple logic to guess zone from address
@@ -61,4 +64,3 @@ defmodule MyApp.TaxiPricing do
     end
   end
 end
-

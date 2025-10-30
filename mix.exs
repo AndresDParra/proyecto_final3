@@ -65,7 +65,10 @@ defmodule MyApp.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:myxql, "~> 0.7.0"},
+      {:geo, "~> 3.6"},
+      {:distance, "~> 1.0"}
     ]
   end
 

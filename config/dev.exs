@@ -1,14 +1,15 @@
-import Config
+# import Config
 
 # Configure your database
 config :my_app, MyApp.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "my_app_dev",
+  adapter: Ecto.Adapters.MyXQL,
+  password: "victor",
+  hostname: "von",
+  database: "taxis_db",
+  port: 3306,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: 30
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -86,3 +87,12 @@ config :phoenix_live_view,
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+# Configure your database
+config :my_app, MyApp.Repo,
+  username: "root",
+  password: "mysql_password",
+  hostname: "db",  # same as the Docker service name
+  database: "my_app_dev",
+  port: 3306,
+  pool_size: 10
