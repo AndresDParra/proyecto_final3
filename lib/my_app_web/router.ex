@@ -16,9 +16,10 @@ defmodule MyAppWeb.Router do
 
   scope "/", MyAppWeb do
     pipe_through(:browser)
-
     get("/", PageController, :home)
-    get("/taxis", taxi_controller, :index)
+    live "/login", LoginLive
+    get("/taxis", TaxiController, :index)
+
   end
 
   # Other scopes may use custom stacks.
@@ -37,7 +38,7 @@ defmodule MyAppWeb.Router do
 
     scope "/dev" do
       pipe_through(:browser)
-
+      live "/login", TuAppWeb.LoginLive
       live_dashboard("/dashboard", metrics: MyAppWeb.Telemetry)
       forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end

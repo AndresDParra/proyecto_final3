@@ -8,3 +8,4 @@ defmodule MyAppWeb.PageHTML do
 
   embed_templates "page_html/*"
 end
+

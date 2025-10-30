@@ -6,7 +6,7 @@ defmodule Taxi.Address do
   # alias ElixirLS.LanguageServer.Plugins.Ecto
 
   # Use lowercase "schema" and plural table name
-  schema "addresses" do
+  embedded_schema do
     field(:street, :string)
     field(:avenue, :string)
     field(:zip_code, :integer)
@@ -21,4 +21,3 @@ defmodule Taxi.Address do
     |> validate_required([:street, :avenue, :zip_code])
   end
 end
-
