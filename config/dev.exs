@@ -1,4 +1,4 @@
-# import Config
+import Config
 
 # Configure your database
 config :my_app, MyApp.Repo,
