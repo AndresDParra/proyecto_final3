@@ -39,7 +39,13 @@ defmodule  MyApp.TaxiPricing do
       "exito centro" => 12.00,
       "zoologico" => 25.00,
       "keisaki" => 25.00,
-      "parque del cafe" => 50.00
+      "parque del cafe" => 50.00,
+      "uniquindio" => 20.00,
+      "parque sucre" => 15.00,
+      "plaza de bolivar" => 10.00,
+      "plaza flora" => 15.00,
+      "EAM" => 10.00,
+      "gran colombia" => 10.00
     }
 
     # Simple logic to guess zone from address
