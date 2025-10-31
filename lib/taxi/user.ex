@@ -2,15 +2,15 @@ defmodule MyApp.User do
   use Ecto.Schema
 
   schema "users" do
+    field :is_taxi, :boolean
     field :name, :string
     # Note: lowercase 'id' is more conventional
     field :ID, :string
-    embeds_one :residence, MyApp.Address
-    field :phone_number, :string
+    field :score, :integer
+    field :password, :string
+    field :phone_number, :integer
     # Added missing type
-    embeds_one :bank_account, MyApp.BankAccount
 
     timestamps()
   end
 end
-
