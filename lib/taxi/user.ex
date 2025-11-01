@@ -1,4 +1,4 @@
-defmodule MyApp.User do
+defmodule MyApp.Taxi.User do
   use Ecto.Schema
 
   schema "users" do
