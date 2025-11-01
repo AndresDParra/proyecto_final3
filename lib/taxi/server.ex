@@ -1,4 +1,4 @@
-defmodule Taxi.Server do
+defmodule MyApp.Server do
   use GenServer
 
   # Client API
@@ -7,10 +7,11 @@ defmodule Taxi.Server do
   end
 
   def get_user(id), do: GenServer.call(__MODULE__, {:get_user, id})
-  def create_user(user), do: GenServer.call(__MODULE__, {:create_user, user})
 
-  def create_trip_request(user, address) do
-    GenServer.call(__MODULE__, {:create_trip_request, user, address})
+  def create_user(user_data), do: GenServer.call(__MODULE__, {:create_user, user_data})
+
+  def create_trip_request(user_id, destination_address) do
+    GenServer.call(__MODULE__, {:create_trip_request, user_id, destination_address})
   end
 
   # Server Callbacks
@@ -28,22 +29,35 @@ defmodule Taxi.Server do
     {:reply, {:ok, user}, state}
   end
 
-  def handle_call({:create_trip_request, user, address}, _from, state) do
-    now = NaiveDateTime.utc_now()
+  def handle_call({:create_trip_request, user_id, destination_address}, _from, state) do
+    case find_user_in_database(user_id) do
+      nil ->
+        {:reply, {:error, :user_not_found}, state}
 
-    price = calculate_total(user.address, address)
+      user ->
+        now = NaiveDateTime.utc_now()
 
-    trip = %{
-      user: user,
-      address: address,
-      time: now,
-      price: price,
-      status: "pending"
-    }
+        # Calculate trip price using your TaxiPricing module
+        case MyApp.TaxiPricing.calculate_trip_price(user.address, destination_address) do
+          {:ok, %{price: price, distance_km: distance}} ->
+            trip = %{
+              user_id: user_id,
+              origin: user.address,
+              destination: destination_address,
+              time: now,
+              price: price,
+              distance: distance,
+              active: true
+            }
 
-    # Update state with new trip
-    new_state = Map.update(state, :trips, [trip], fn trips -> [trip | trips] end)
-    {:reply, {:ok, trip}, new_state}
+            # Update state with new trip
+            new_state = Map.update(state, :trips, [trip], fn trips -> [trip | trips] end)
+            {:reply, {:ok, trip}, new_state}
+
+          {:error, reason} ->
+            {:reply, {:error, reason}, state}
+        end
+    end
   end
 
   def handle_cast({:update_status, status}, state) do
@@ -52,27 +66,15 @@ defmodule Taxi.Server do
   end
 
   # Private helper functions
-  defp find_user_in_database(_id) do
-    # TODO: Implement database lookup
-    nil
+  defp find_user_in_database(id) do
+    # Use your actual Repo
+    MyApp.Repo.get(MyApp.User, id)
   end
 
-  defp save_user_to_database(_user_data) do
-    # TODO: Implement database save
-    %{id: 1, name: "User", address: "123 Main St"}
-  end
-
-  defp calculate_total(user_address, address) do
-    distance = calculate_distance(user_address, address)
-    # $15 per km (adjust as needed)
-    total = distance * 1500
-    # Round to 2 decimal places
-    Float.round(total, 2)
-  end
-
-  defp calculate_distance(user_address, final_address) do
-    MyApp.TaxiPricing.calculate_trip_price(user_address, final_address) 
+  defp save_user_to_database(user_data) do
+    # Use your actual Repo and changeset
+    %Taxi.User{}
+    |> Taxi.User.changeset(user_data)
+    |> MyApp.Repo.insert!()
   end
 end
-
-

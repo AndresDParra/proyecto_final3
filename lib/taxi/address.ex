@@ -7,9 +7,7 @@ defmodule Taxi.Address do
 
   # Use lowercase "schema" and plural table name
   embedded_schema do
-    field(:street, :string)
-    field(:avenue, :string)
-    field(:zip_code, :integer)
+    field(:coordinates, :float)
 
     timestamps()
   end
@@ -17,7 +15,7 @@ defmodule Taxi.Address do
   # Add a changeset function for validation
   def changeset(address, attrs) do
     address
-    |> cast(attrs, [:street, :avenue, :zip_code])
-    |> validate_required([:street, :avenue, :zip_code])
+    |> cast(attrs, [:coordinates])
+    |> validate_required([:coordinates])
   end
 end
