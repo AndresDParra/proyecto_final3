@@ -14,7 +14,7 @@ defmodule MyApp.Auth.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :username, :password])
-    |> validate_required([:name, :username, :password])
+    |> cast(attrs, [:name, :username, :password, :role_id])
+    |> validate_required([:name, :username, :password, :role_id])
   end
 end

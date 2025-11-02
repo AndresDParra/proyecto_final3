@@ -21,22 +21,4 @@ defmodule MyApp.RankingFixtures do
 
     result
   end
-
-  @doc """
-  Generate a result.
-  """
-  def result_fixture(attrs \\ %{}) do
-    {:ok, result} =
-      attrs
-      |> Enum.into(%{
-        date_trip: ~N[2025-11-01 18:59:00],
-        driver_points: 42,
-        origin: "some origin",
-        passenger_points: 42,
-        status: "some status"
-      })
-      |> MyApp.Ranking.create_result()
-
-    result
-  end
 end
