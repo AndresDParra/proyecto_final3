@@ -18,14 +18,6 @@ defmodule MyApp.Ranking.Result do
   def changeset(result, attrs) do
     result
     |> cast(attrs, [:date_trip, :passenger_points, :driver_points, :origin, :status])
-    |> validate_required([
-      :date_trip,
-      :passenger_points,
-      :passenger_id,
-      :driver_points,
-      :driver_id,
-      :origin,
-      :status
-    ])
+    |> validate_required([:date_trip, :passenger_points, :driver_points, :origin, :status])
   end
 end

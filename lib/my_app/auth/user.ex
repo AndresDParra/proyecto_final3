@@ -6,7 +6,7 @@ defmodule MyApp.Auth.User do
     field :name, :string
     field :username, :string
     field :password, :string
-    field :role_id, :integer
+    field :role_id, :id
 
     timestamps(type: :utc_datetime)
   end
@@ -15,6 +15,6 @@ defmodule MyApp.Auth.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :username, :password])
-    |> validate_required([:name, :username, :password, :role_id])
+    |> validate_required([:name, :username, :password])
   end
 end

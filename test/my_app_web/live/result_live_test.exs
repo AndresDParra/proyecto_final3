@@ -4,8 +4,8 @@ defmodule MyAppWeb.ResultLiveTest do
   import Phoenix.LiveViewTest
   import MyApp.RankingFixtures
 
-  @create_attrs %{status: "some status", origin: "some origin", date_trip: "2025-10-31T22:07:00", passenger_points: 42, driver_points: 42}
-  @update_attrs %{status: "some updated status", origin: "some updated origin", date_trip: "2025-11-01T22:07:00", passenger_points: 43, driver_points: 43}
+  @create_attrs %{status: "some status", origin: "some origin", date_trip: "2025-11-01T18:59:00", passenger_points: 42, driver_points: 42}
+  @update_attrs %{status: "some updated status", origin: "some updated origin", date_trip: "2025-11-02T18:59:00", passenger_points: 43, driver_points: 43}
   @invalid_attrs %{status: nil, origin: nil, date_trip: nil, passenger_points: nil, driver_points: nil}
   defp create_result(_) do
     result = result_fixture()

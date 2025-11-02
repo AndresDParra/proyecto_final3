@@ -198,3 +198,4 @@ defmodule MyApp.Auth do
     User.changeset(user, attrs)
   end
 end
+

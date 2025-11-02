@@ -25,4 +25,13 @@ defmodule Mytest do
     user = get_user(id)
     MyApp.Auth.delete_user(user)
   end
+
+  def dummy_user do
+    MyApp.Auth.create_user(%{
+      username: "dummy_usernaame",
+      name: "Mr.Dummy",
+      password: "dummy_pwd",
+      role_id: 1
+    })
+  end
 end
