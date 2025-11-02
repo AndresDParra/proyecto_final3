@@ -1,0 +1,28 @@
+defmodule Mytest do
+  def update_user(id, name, username, password, id_role) do
+    MyApp.Auth.update_user(get_user(id), %{
+      username: username,
+      name: name,
+      password: password,
+      role_id: id_role
+    })
+  end
+
+  def create_user(username, name, password, id_role) do
+    MyApp.Auth.create_user(%{
+      username: username,
+      name: name,
+      password: password,
+      role_id: id_role
+    })
+  end
+
+  def get_user(id) do
+    MyApp.Auth.get_user!(id)
+  end
+
+  def delete_user(id) do
+    user = get_user(id)
+    MyApp.Auth.delete_user(user)
+  end
+end
