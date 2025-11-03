@@ -16,10 +16,11 @@ defmodule MyAppWeb.Router do
 
   scope "/", MyAppWeb do
     pipe_through(:browser)
-    get("/", PageController, :home)
+    # get("/", PageController, :home)
     live "/login", LoginLive
-    get("/taxis", TaxiController, :index)
-
+    resources "/taxis", TaxiController, except: [:delete]
+    get "/Users/", UserViewController, :index
+    get "/Users/:id", UserViewController, :show
   end
 
   # Other scopes may use custom stacks.
@@ -44,4 +45,3 @@ defmodule MyAppWeb.Router do
     end
   end
 end
-
